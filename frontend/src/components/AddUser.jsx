@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { FaUser } from 'react-icons/fa'
+import { addUser, reset } from '../../features/adminAuth/adminAuthSlice'
+import Spinner from '../../components/Spinner'
 
-function Register() {
+function AddUser() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -11,22 +16,56 @@ function Register() {
 
     const { name, email, password, password2 } = formData
 
-    const onChange=(e)=>{
-        setFormData((prevState)=>({
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const { isLoading, isError, isSuccess, message ,isUserAdded} = useSelector((state) => state.adminAuth)
+
+    useEffect(() => {
+        if (isError) {
+            toast.error(message)
+        }
+
+        if (isUserAdded) {
+            navigate('/admin ')
+        }
+
+        dispatch(reset())
+
+    }, [ isError, isSuccess, message, navigate, dispatch])
+
+    const onChange = (e) => {
+        setFormData((prevState) => ({
             ...prevState,
-            [e.target.name]:e.target.value
+            [e.target.name]: e.target.value
         }))
     }
 
-    const onSubmit=(e)=>{
+    const onSubmit = (e) => {
         e.preventDefault()
+
+        if (password !== password2) {
+            toast.error('Passwords do not match')
+        } else {
+            const userData = {
+                name,
+                email,
+                password,
+            }
+
+            dispatch(addUser(userData))
+        }
+    }
+
+    if (isLoading) {
+        return <Spinner />
     }
 
     return (
         <>
             <section className="heading">
                 <h1>
-                    <FaUser />Register
+                    <FaUser />Add User
                 </h1>
                 <p>Please create an account</p>
             </section>
@@ -73,10 +112,9 @@ function Register() {
                     </div>
                 </form>
             </section>
-
         </>
     )
 }
 
 export default
-    Register
+    AddUser

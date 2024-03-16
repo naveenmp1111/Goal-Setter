@@ -14,6 +14,17 @@ const userSchema=mongoose.Schema({
         type:String,
         required:[true,'Please Provide a Password']
     },
+    is_admin:{
+        type:Boolean,
+        default:false
+    },
+    is_active:{
+        type:Boolean,
+        default:true
+    },
+    image_url:{
+        type:String
+    }
 },{
     timestamps:true
 })
