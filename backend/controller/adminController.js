@@ -18,7 +18,7 @@ const adminLogin = asyncHandler(async (req, res) => {
             token: generateToken(user._id)
         })
     } else {
-        res.status(4003)
+        res.status(400)
         throw new Error('Invalid credentials')
     }
 })
@@ -33,6 +33,7 @@ const getUsers = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('No user found')
     } else {
+        console.log('get users',users)
         res.status(200).json(users)
     }
 })
@@ -49,6 +50,7 @@ const blockUser = asyncHandler(async (req, res) => {
     user.is_active = !user.is_active
     await user.save()
     const users = await User.find({ is_admin: false })
+    // console.log(users)
     res.status(200).json(users)
 })
 
@@ -86,15 +88,19 @@ const addUser = asyncHandler(async (req, res) => {
 })
 
 const editUser=asyncHandler(async(req,res)=>{
-    console.log(req.body.userData)
+    // console.log(req.body.userData)
     const {id,name,email}=req.body.userData
+    const userExists=await User.findOne({email})
+    // if(userExists){
+    //     throw new Error('Email Already exists')
+    // }
     const user=await User.findByIdAndUpdate(id,{name,email})
     const users=await User.find({is_admin:false})
     if(!user){
         res.status(400)
         throw new Error('User not found')
     }
-    
+    console.log('editusers',users)
     res.status(200).json(users)
 })
 

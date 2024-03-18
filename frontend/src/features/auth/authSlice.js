@@ -74,9 +74,11 @@ export const authSlice =createSlice({
         builder
         .addCase(register.pending,(state)=>{
             state.isLoading=true
+            state.isError=false
         })
         .addCase(register.fulfilled,(state,action)=>{
             state.isLoading=false
+            state.isError=false
             state.isSuccess=true
             state.user=action.payload
         })
@@ -88,10 +90,12 @@ export const authSlice =createSlice({
         })
         .addCase(login.pending,(state)=>{
             state.isLoading=true
+            state.isError=false
         })
         .addCase(login.fulfilled,(state,action)=>{
             state.isLoading=false
             state.isSuccess=true
+            state.isError=false
             state.user=action.payload
         })
         .addCase(login.rejected,(state,action)=>{
@@ -105,19 +109,28 @@ export const authSlice =createSlice({
         })
         .addCase(updateUser.pending,(state)=>{
             state.isLoading= true
+            state.isError=false
         })
         .addCase(updateUser.fulfilled,(state,action)=>{
+            state.isError=false
             state.isLoading=false
             state.isSuccess=true
             state.user=action.payload
         })
+        .addCase(updateUser.rejected,(state,action)=>{
+            state.isLoading=false
+            state.isError=true
+            state.message=action.payload
+        })
         .addCase(updateProfileImage.pending,(state)=>{
             state.isLoading= true
+            state.isError=false
         })
         .addCase(updateProfileImage.fulfilled,(state,action)=>{
             state.isLoading=false
             state.isSuccess=true
             state.user=action.payload
+            state.isError=false
         })
         
     }

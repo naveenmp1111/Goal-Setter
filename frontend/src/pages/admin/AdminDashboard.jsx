@@ -35,8 +35,9 @@ function Dashboard() {
         <div>
             <h1>Admin Dashboard</h1>
             <div style={{ width: '100%', display: "flex", justifyContent: "flex-end"}}>
-                <button className="btn" onClick={onLogout}>Logout</button>&nbsp;
-                <button className="btn" onClick={addUser}>Add User</button>
+            <button className="btn" onClick={addUser}>Add User</button>&nbsp;
+                <button className="btn" onClick={onLogout}>Logout</button>
+                
             </div><br />
 
             <UsersList />

@@ -6,6 +6,7 @@ import {useNavigate} from 'react-router-dom';
 import EditUserModal from "../../components/EditUserModal";
 import Spinner from "../../components/Spinner";
 import axios from "axios";
+import {toast} from 'react-toastify'
 
 
 
@@ -13,9 +14,10 @@ import axios from "axios";
 function Profile() {
     const navigate=useNavigate()
     const dispatch=useDispatch()
-    const {user,isLoading}=useSelector((state)=>state.auth)
+    const {user,isLoading,isError,message}=useSelector((state)=>state.auth)
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    
     const editProfile = (user) => {
         setIsModalOpen(true);
     };
@@ -33,11 +35,16 @@ function Profile() {
            
     }
 
+
+
     useEffect(()=>{
+        if(isError){
+            toast.error(message)
+        }
         if(!user){
             navigate('/login')
         }
-    })
+    },[isError,user,message])
 
 
     const preset_key='xdxoqisy'
@@ -68,7 +75,7 @@ function Profile() {
     {isLoading && <Spinner/>}
      <div className="user-profile">
     <div className="profile-image">
-        <img src={user.image_url ? user.image_url :  "https://static.vecteezy.com/system/resources/thumbnails/002/387/693/small/user-profile-icon-free-vector.jpg"} alt="will come soon " /><br />
+        <img className="pimg" src={user.image_url ? user.image_url :  "https://static.vecteezy.com/system/resources/thumbnails/002/387/693/small/user-profile-icon-free-vector.jpg"} alt="will come soon " /><br />
         <input type="file" name="image" onChange={handleFile}/>
         <br />
         <br />
@@ -76,7 +83,7 @@ function Profile() {
         {imageUrl!='settingCloudinary' && imageUrl   ? <button className="btn" onClick={updateImage}>Update Image</button>: null}
     </div>
     <div className="profile-details">
-        <h2>User Profile</h2>
+        <h1>User Profile</h1>
         <div>
             <strong>Name:</strong> {user.name}
         </div>
@@ -84,7 +91,7 @@ function Profile() {
             <strong>Email:</strong> {user.email}
         </div>
         <div>
-        <button className='edit-button' onClick={()=>{editProfile(user)}}>edit</button>
+        <button className='update-button' onClick={()=>{editProfile(user)}}>Edit Profile</button>
     </div>
     </div>
     

@@ -134,7 +134,7 @@ export const adminAuthSlice =createSlice({
           .addCase(blockUser.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isSuccess = true;
-            state.users = action.payload.users;
+            state.users = action.payload;
           })
           .addCase(blockUser.rejected, (state, action) => {
             state.isLoading = false;
@@ -160,7 +160,7 @@ export const adminAuthSlice =createSlice({
           })
           .addCase(editUser.fulfilled,(state,action)=>{
             state.isLoading=false;
-            state.users=action.payload.users
+            state.users=action.payload
           })
           .addCase(editUser.rejected,(state,action)=>{
             state.isLoading=false;

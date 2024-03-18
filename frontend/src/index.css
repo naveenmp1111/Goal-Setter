@@ -215,13 +215,16 @@ h3 {
 }
 
 .styled-table {
+  border-radius: 10px;
   width: 100%;
+  background-color: #fbfeff;
   border-collapse: collapse;
   border: 1px solid #000; /* Black border */
 }
 
 .styled-table th,
 .styled-table td {
+  /* border-radius: 10px; */
   padding: 8px;
   text-align: center;
   border-bottom: 1px solid #000; /* Black border */
@@ -304,9 +307,10 @@ button[type="submit"]:hover {
 
 .user-profile {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   border: 1px solid #ccc;
-  padding: 20px;
+  padding: 30px 90px;
+  border-radius: 20px;
 }
 
 .profile-image {
@@ -315,12 +319,50 @@ button[type="submit"]:hover {
 
 .profile-details {
   flex-grow: 1;
+  margin-top: 50px;
 }
 
 /* Style your profile image as needed */
+.profile-image .pimg {
+  width: 300px; /* Adjust as needed */
+  height: 300px; /* Adjust as needed */
+  border-radius: 50%;
+  background-color: #000;
+}
 .profile-image img {
   width: 100px; /* Adjust as needed */
   height: 100px; /* Adjust as needed */
-  /* border-radius: 50%; */
+  border-radius: 50%;
   background-color: #000;
 }
+
+.update-button {
+  background-color: #4caf50; /* Green background */
+  border: none;
+  color: white; /* White text */
+  padding: 10px 20px; /* Padding */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px; /* Rounded corners */
+  margin-top: 20px;
+}
+
+/* Hover effect */
+.update-button:hover {
+  background-color: #45a049;
+}
+
+/* .search-bar{
+  width: '100%';
+  padding: '10px';
+  font-size: '16px';
+  border: '1px solid #ccc';
+  border-radius: '5px';
+  box-shadow: '0 10px 15px rgba(0, 0, 0, 0.1)';
+  box-sizing: 'border-box';
+  margin-bottom: '20px';
+} */

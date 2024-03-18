@@ -68,6 +68,7 @@ const editUser=async(token,userData)=>{
         }
     }
     const response= await axios.post(API_URL + 'editUser',{userData},config)
+    console.log('edituser',response.data)
     return response.data
 }
 
